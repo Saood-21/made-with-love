@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📸 Our Memories 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">💖</text></svg>'), auto;
+        }
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #ff8ec7 0%, #b19cd9 50%, #ff8ec7 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .marquee-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #ff1493, #9370db, #ff1493);
+            border-bottom: 5px solid #fff;
+            box-shadow: 0 4px 0 #ff1493, 0 8px 0 #fff, 0 12px 20px rgba(0,0,0,0.3);
+            padding: 10px 0;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .marquee {
+            display: flex;
+            white-space: nowrap;
+            animation: scroll 22s linear infinite;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 3px 3px 0 #ff1493, 6px 6px 0 rgba(0,0,0,0.2);
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee span {
+            padding: 0 50px;
+        }
+
+        .music-toggle, .home-button {
+            position: fixed;
+            top: 80px;
+            z-index: 1001;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            border: 4px solid #fff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            box-shadow: 0 0 0 4px #ff1493, 0 6px 20px rgba(0,0,0,0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            transition: transform 0.3s;
+            text-decoration: none;
+        }
+
+        .music-toggle {
+            right: 20px;
+        }
+
+        .home-button {
+            right: 100px;
+        }
+
+        .music-toggle:hover, .home-button:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            padding: 120px 20px 60px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 52px;
+            color: #ff1493;
+            margin-bottom: 15px;
+            text-shadow: 5px 5px 0 #fff, 10px 10px 0 #9370db;
+        }
+
+        .slideshow-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 1s;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .photo-frame {
+            background: linear-gradient(135deg, #fff0fa 0%, #ffe6f7 100%);
+            border: 10px solid #ff1493;
+            border-radius: 20px;
+            box-shadow: 
+                0 0 0 6px #fff,
+                0 0 0 12px #9370db,
+                0 0 0 15px #fff,
+                0 20px 50px rgba(0,0,0,0.4);
+            padding: 30px;
+            position: relative;
+        }
+
+        .photo-frame::before {
+            content: '📸';
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 50px;
+            animation: swing 2s ease-in-out infinite;
+        }
+
+        @keyframes swing {
+            0%, 100% { transform: translateX(-50%) rotate(-5deg); }
+            50% { transform: translateX(-50%) rotate(5deg); }
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, #ffc0e3, #e6d5ff);
+            border: 5px dashed #ff69b4;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #ff1493;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .photo-caption {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 22px;
+            color: #ff1493;
+            font-weight: bold;
+            text-shadow: 2px 2px 0 #fff;
+        }
+
+        .slideshow-controls {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .control-btn {
+            background: linear-gradient(135deg, #00ff88, #00cc66);
+            border: 5px solid #fff;
+            box-shadow: 0 0 0 3px #000, 0 6px 0 #000, 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 15px 40px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 24px;
+            color: #fff;
+            text-shadow: 2px 2px 0 #008844;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 0 3px #000, 0 9px 0 #000, 0 13px 40px rgba(0,0,0,0.4);
+        }
+
+        .control-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 0 0 3px #000, 0 3px 0 #000, 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .slide-counter {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 20px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: bold;
+        }
+
+        .floating-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 5;
+            animation: floatUp 4s ease-in infinite;
+            font-size: 30px;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .cursor-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 20px;
+            animation: fadeOut 1s forwards;
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; transform: translateY(-20px) scale(0.5); }
+        }
+
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 5;
+            animation: sparkleAnim 2s ease-out forwards;
+        }
+
+        @keyframes sparkleAnim {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.5) rotate(180deg); opacity: 0.8; }
+            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="starfield"></div>
+
+    <div class="marquee-container">
+        <div class="marquee">
+            <span>📸 Our Beautiful Memories Together! 📸</span>
+            <span>💖 Every Picture Tells Our Story! 💖</span>
+            <span>✨ Captured Moments of Love! ✨</span>
+            <span>💕 So Many Amazing Times! 💕</span>
+            <span>📸 Our Beautiful Memories Together! 📸</span>
+            <span>💖 Every Picture Tells Our Story! 💖</span>
+            <span>✨ Captured Moments of Love! ✨</span>
+            <span>💕 So Many Amazing Times! 💕</span>
+        </div>
+    </div>
+
+    <a href="welcome.html" class="home-button" title="Back to Home">🏠</a>
+    <div class="music-toggle" id="musicToggle" title="Toggle Music">🎵</div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Our Photo Album 📸💕</h1>
+        </div>
+
+        <div class="slideshow-container">
+            <div class="slide active">
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <!-- Replace this placeholder with your image -->
+                        <!-- <img src="assets/images/photo1.jpg" style="width: 100%; border-radius: 10px;" alt="First Memory"> -->
+                        Replace with your photo! 💖<br>
+                        (First Memory)
+                    </div>
+                    <div class="photo-caption">Our first adventure together! 💕</div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <!-- Replace this placeholder with your image -->
+                        <!-- <img src="assets/images/photo2.jpg" style="width: 100%; border-radius: 10px;" alt="Second Memory"> -->
+                        Replace with your photo! 💖<br>
+                        (Second Memory)
+                    </div>
+                    <div class="photo-caption">That amazing day we'll never forget! ✨</div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <!-- Replace this placeholder with your image -->
+                        <!-- <img src="assets/images/photo3.jpg" style="width: 100%; border-radius: 10px;" alt="Third Memory"> -->
+                        Replace with your photo! 💖<br>
+                        (Third Memory)
+                    </div>
+                    <div class="photo-caption">Just being silly together! 😊</div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <!-- Replace this placeholder with your image -->
+                        <!-- <img src="assets/images/photo4.jpg" style="width: 100%; border-radius: 10px;" alt="Fourth Memory"> -->
+                        Replace with your photo! 💖<br>
+                        (Fourth Memory)
+                    </div>
+                    <div class="photo-caption">The sunset was beautiful, but not as beautiful as you! 🌅</div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <!-- Replace this placeholder with your image -->
+                        <!-- <img src="assets/images/photo5.jpg" style="width: 100%; border-radius: 10px;" alt="Fifth Memory"> -->
+                        Replace with your photo! 💖<br>
+                        (Fifth Memory)
+                    </div>
+                    <div class="photo-caption">Making memories every single day! 💝</div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <!-- Replace this placeholder with your image -->
+                        <!-- <img src="assets/images/photo6.jpg" style="width: 100%; border-radius: 10px;" alt="Sixth Memory"> -->
+                        Replace with your photo! 💖<br>
+                        (Sixth Memory)
+                    </div>
+                    <div class="photo-caption">You make everything better! 🌟</div>
+                </div>
+            </div>
+
+            <div class="slideshow-controls">
+                <button class="control-btn" onclick="changeSlide(-1)">◀ PREV</button>
+                <button class="control-btn" onclick="changeSlide(1)">NEXT ▶</button>
+            </div>
+
+            <div class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">6</span>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="assets/music/background-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            document.getElementById('currentSlide').textContent = index + 1;
+        }
+
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            if (currentSlideIndex >= totalSlides) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = totalSlides - 1;
+            showSlide(currentSlideIndex);
+        }
+
+        // Auto-advance slideshow every 5 seconds
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        function createStars() {
+            const starfield = document.getElementById('starfield');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starfield.appendChild(star);
+            }
+        }
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = ['💖', '💘', '💝', '💗', '💕', '✨'][Math.floor(Math.random() * 6)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.bottom = '-50px';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.textContent = '✨';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            sparkle.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 2000);
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.8) {
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.textContent = '💖';
+                trail.style.left = e.pageX + 'px';
+                trail.style.top = e.pageY + 'px';
+                document.body.appendChild(trail);
+                setTimeout(() => trail.remove(), 1000);
+            }
+            if (Math.random() > 0.95) {
+                createSparkle(e.pageX, e.pageY);
+            }
+        });
+
+        const music = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        let isPlaying = false;
+
+        musicToggle.addEventListener('click', () => {
+            if (isPlaying) {
+                music.pause();
+                musicToggle.textContent = '🎵';
+            } else {
+                music.play();
+                musicToggle.textContent = '🎶';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        createStars();
+        setInterval(createFloatingHeart, 2000);
+    </script>
+</body>
+</html>
