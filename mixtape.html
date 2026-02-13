@@ -17,7 +17,7 @@
             font-family: 'Comic Neue', cursive;
             min-height: 100vh;
             overflow-x: hidden;
-            background: linear-gradient(135deg, #ff5f9e 0%, #a17fe0 50%, #ff5f9e 100%);
+            background: linear-gradient(45deg, #ff6b9d, #c06c84, #6c5b7b, #355c7d);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             position: relative;
@@ -55,7 +55,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(90deg, #ff1493, #8b5cf6, #ff1493);
+            background: linear-gradient(90deg, #ff1493, #6c5b7b, #ff1493);
             border-bottom: 5px solid #fff;
             box-shadow: 0 4px 0 #ff1493, 0 8px 0 #fff, 0 12px 20px rgba(0,0,0,0.3);
             padding: 10px 0;
@@ -130,7 +130,13 @@
             font-size: 52px;
             color: #ff1493;
             margin-bottom: 15px;
-            text-shadow: 5px 5px 0 #fff, 10px 10px 0 #8b5cf6;
+            text-shadow: 5px 5px 0 #fff, 10px 10px 0 #6c5b7b;
+        }
+
+        .page-header h1 .cd-icon {
+            display: inline-block;
+            animation: rotate 10s linear infinite;
+            margin-left: 10px;
         }
 
         .page-header p {
@@ -147,18 +153,22 @@
             border-radius: 25px;
             box-shadow: 
                 0 0 0 6px #fff,
-                0 0 0 12px #8b5cf6,
+                0 0 0 12px #6c5b7b,
                 0 0 0 15px #fff,
                 0 20px 50px rgba(0,0,0,0.4);
             padding: 50px 40px;
             position: relative;
         }
 
-        .cassette-decoration {
+        .spotify-barcode {
             text-align: center;
-            font-size: 80px;
             margin-bottom: 30px;
-            animation: rotate 10s linear infinite;
+        }
+
+        .spotify-barcode img {
+            max-width: 280px;
+            width: 100%;
+            border-radius: 10px;
         }
 
         @keyframes rotate {
@@ -172,13 +182,14 @@
             border-radius: 15px;
             box-shadow: 
                 0 0 0 3px #fff,
-                0 0 0 6px #8b5cf6,
+                0 0 0 6px #6c5b7b,
                 0 8px 25px rgba(0,0,0,0.2);
             padding: 25px;
             margin-bottom: 25px;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .song::before {
@@ -204,21 +215,37 @@
                 0 12px 35px rgba(255,20,147,0.4);
         }
 
+        .song.playing {
+            border-color: #ff1493;
+            background: linear-gradient(135deg, #fff0fa 0%, #ffe0f0 100%);
+            box-shadow: 
+                0 0 0 3px #fff,
+                0 0 0 6px #ff1493,
+                0 12px 35px rgba(255,20,147,0.4);
+        }
+
         .song-number {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             background: linear-gradient(135deg, #ff1493, #ff69b4);
             color: #fff;
             border: 3px solid #fff;
             border-radius: 50%;
             width: 50px;
             height: 50px;
-            line-height: 44px;
-            text-align: center;
             font-family: 'Fredoka One', cursive;
             font-size: 24px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             float: left;
             margin-right: 20px;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .song.playing .song-number {
+            background: linear-gradient(135deg, #00cc66, #00ff88);
+            font-size: 20px;
         }
 
         .song-info {
@@ -235,7 +262,7 @@
 
         .song-artist {
             font-size: 20px;
-            color: #8b5cf6;
+            color: #6c5b7b;
             font-weight: bold;
             margin-bottom: 12px;
         }
@@ -245,6 +272,49 @@
             color: #666;
             font-style: italic;
             line-height: 1.5;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 105, 180, 0.2);
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .song.playing .progress-bar-container {
+            display: block;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff1493, #ff69b4);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .song-duration {
+            display: none;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #999;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .song.playing .song-duration {
+            display: flex;
+        }
+
+        .no-songs-message {
+            text-align: center;
+            padding: 40px;
+            font-size: 22px;
+            color: #ff1493;
+            font-weight: bold;
         }
 
         .floating-heart {
@@ -317,96 +387,217 @@
     </div>
 
     <a href="welcome.html" class="home-button" title="Back to Home">🏠</a>
-    <div class="music-toggle" id="musicToggle" title="Toggle Music">🎵</div>
+    <div class="music-toggle" id="musicToggle" title="Toggle Background Music">🎵</div>
 
     <div class="container">
         <div class="page-header">
-            <h1>Love Mixtape 🎵💕</h1>
+            <h1>Love Mixtape 🎵💕 <span class="cd-icon">💿</span></h1>
             <p>Songs that make me think of you ✨</p>
         </div>
 
         <div class="mixtape-container">
-            <div class="cassette-decoration">💿</div>
-
-            <div class="song">
-                <div class="song-number">1</div>
-                <div class="song-info">
-                    <div class="song-title">Your Favorite Song</div>
-                    <div class="song-artist">Your Favorite Artist</div>
-                    <div class="song-note">This always makes me smile because I know how much you love it! 💖</div>
-                </div>
+            <div class="spotify-barcode">
+                <img src="assets/misc/spcode-0ht02xR2MlXKaVv2QIySlV.png" alt="Spotify Barcode">
             </div>
-
-            <div class="song">
-                <div class="song-number">2</div>
-                <div class="song-info">
-                    <div class="song-title">Our Song</div>
-                    <div class="song-artist">Amazing Band</div>
-                    <div class="song-note">Remember when this was playing during our first date? I'll never forget that moment! 🌟</div>
-                </div>
-            </div>
-
-            <div class="song">
-                <div class="song-number">3</div>
-                <div class="song-info">
-                    <div class="song-title">That Special Tune</div>
-                    <div class="song-artist">Wonderful Singer</div>
-                    <div class="song-note">This one always gets stuck in my head, just like you're always on my mind! 💭</div>
-                </div>
-            </div>
-
-            <div class="song">
-                <div class="song-number">4</div>
-                <div class="song-info">
-                    <div class="song-title">Dance Forever</div>
-                    <div class="song-artist">Cool Artist</div>
-                    <div class="song-note">I love dancing with you to this one - even if we're just being silly! 💃</div>
-                </div>
-            </div>
-
-            <div class="song">
-                <div class="song-number">5</div>
-                <div class="song-info">
-                    <div class="song-title">Beautiful Melody</div>
-                    <div class="song-artist">Talented Musician</div>
-                    <div class="song-note">The lyrics remind me so much of us and our journey together! 🌈</div>
-                </div>
-            </div>
-
-            <div class="song">
-                <div class="song-number">6</div>
-                <div class="song-info">
-                    <div class="song-title">Sweet Harmony</div>
-                    <div class="song-artist">Dream Band</div>
-                    <div class="song-note">This was playing in the background during one of our best memories! ✨</div>
-                </div>
-            </div>
-
-            <div class="song">
-                <div class="song-number">7</div>
-                <div class="song-info">
-                    <div class="song-title">Love Song</div>
-                    <div class="song-artist">Perfect Performer</div>
-                    <div class="song-note">Every word in this song describes how I feel about you! 💝</div>
-                </div>
-            </div>
-
-            <div class="song">
-                <div class="song-number">8</div>
-                <div class="song-info">
-                    <div class="song-title">Forever Together</div>
-                    <div class="song-artist">Amazing Duo</div>
-                    <div class="song-note">This makes me think about our future and all the adventures we'll have! 🚀</div>
-                </div>
-            </div>
+            <div id="songList"></div>
         </div>
     </div>
 
-    <audio id="bgMusic" loop>
-        <source src="assets/music/background-music.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bgMusic"></audio>
+    <audio id="songPlayer"></audio>
 
     <script>
+        // ============================================================
+        // 🎵 SONG CONFIGURATION - Add your songs here!
+        // 
+        // For each song, provide:
+        //   file:   the MP3 filename in assets/music/
+        //   title:  (optional) display title — if omitted, derived from filename
+        //   artist: (optional) artist name
+        //   note:   (optional) personal note about the song
+        // ============================================================
+        const songs = [
+            { file: "Aaj Din Chadheya -lyrics  Rahat Fateh Ali Khan  Love Aaj Kal @LYRICS.mp3", title: "Aaj Din Chadheya", artist: "Rahat Fateh Ali Khan", note: "" },
+            { file: "Aaj Kal Tere Mere Pyar Ke Charche  Brahmachari (1968)  Shammi Kapoor  Mumtaz  Pran  Hindi Song.mp3", title: "Aaj Kal Tere Mere Pyar Ke Charche", artist: "Shammi Kapoor", note: "" },
+            { file: "Agora Hills.mp3", title: "Agora Hills", artist: "", note: "" },
+            { file: "Jawani Jan-E-Man House Trap.mp3", title: "Jawani Jan-E-Man", artist: "", note: "" },
+            { file: "Jimmy pulls up in his blue Chevy Nova - Lana Del Rey #lanadelreylove.mp3", title: "Jimmy Pulls Up In His Blue Chevy Nova", artist: "Lana Del Rey", note: "" },
+            { file: "kangana tera ni (sped up).mp3", title: "Kangana Tera Ni", artist: "", note: "" },
+            { file: "Karan Aujla, Ikky - For A Reason (Lyrics).mp3", title: "For A Reason", artist: "Karan Aujla, Ikky", note: "" },
+            { file: "KASHISH (Lyrics) Ashish Bhatia  Kashish Ratnani  Omkar Singh.mp3", title: "Kashish", artist: "Ashish Bhatia", note: "" },
+            { file: "Lat Lag Gaye (Lyrics) - Benny Dayal & Shalmali Kholgade !.mp3", title: "Lat Lag Gaye", artist: "Benny Dayal & Shalmali Kholgade", note: "" },
+            { file: "main tera.mp3", title: "Main Tera", artist: "", note: "" },
+            { file: "Main Tere pai mar gayi Sajnare Black Screen Lyrics Video.mp3", title: "Main Tere Pai Mar Gayi Sajnare", artist: "", note: "" },
+            { file: "Meem Se Mohabbat - [??????] Beqarrar Yeh Dil  - Singers [ Asim Azhar & Qirat Haider ] - HUM TV.mp3", title: "Meem Se Mohabbat", artist: "Asim Azhar & Qirat Haider", note: "" },
+            { file: "Mere Kaan Mai Hai Jo Bali  Kithe Reh Gaya (lyrical Video)  Neeti Mohan.mp3", title: "Kithe Reh Gaya", artist: "Neeti Mohan", note: "" },
+            { file: "Noor Mahal - Chani Nattan, Inderpal Moga (LyricsEnglish Meaning).mp3", title: "Noor Mahal", artist: "Chani Nattan, Inderpal Moga", note: "" },
+            { file: "rab jane menu ho gaya ki ve tere bina mera lagda  Slowed Reverb  DO PALL SURINDER KAUR X COACHSAH.mp3", title: "Do Pall", artist: "Surinder Kaur", note: "" },
+            { file: "Ranjha  Official Video  Shershaah  SidharthKiara  B Praak  Jasleen Royal  Romy  Anvita Dutt.mp3", title: "Ranjha", artist: "B Praak & Jasleen Royal", note: "" },
+            { file: "Ravyn Lenae - Love Me Not (Lyrics).mp3", title: "Love Me Not", artist: "Ravyn Lenae", note: "" },
+            { file: "Sanun Nahar Wale Pul  @EMIPakistanOfficial Madam Noor Jehan.mp3", title: "Sanun Nahar Wale Pul", artist: "Madam Noor Jehan", note: "" },
+            { file: "Taylor Swift - Style.mp3", title: "Style", artist: "Taylor Swift", note: "" },
+            { file: "Taylor Swift - The Fate of Ophelia (Official Music Video).mp3", title: "The Fate of Ophelia", artist: "Taylor Swift", note: "" },
+            { file: "Taylor Swift - Wildest Dreams (Lyrics).mp3", title: "Wildest Dreams", artist: "Taylor Swift", note: "" },
+            { file: "Tere Liye - Atif Aslam & Shreya Ghoshal (Lyrics)  Lyrical Bam Hindi.mp3", title: "Tere Liye", artist: "Atif Aslam & Shreya Ghoshal", note: "" },
+            { file: "Tesher - Jalebi Baby (Original Version) (Official Lyric Video).mp3", title: "Jalebi Baby", artist: "Tesher", note: "" },
+            { file: "The Chainsmokers - Closer (Lyrics) ft. Halsey.mp3", title: "Closer", artist: "The Chainsmokers ft. Halsey", note: "" },
+            { file: "The Marías - Heavy (edit audio).mp3", title: "Heavy", artist: "The Marías", note: "" },
+            { file: "The Marías - Jupiter.mp3", title: "Jupiter", artist: "The Marías", note: "" },
+            { file: "ve kamleya - edit audio.mp3", title: "Ve Kamleya", artist: "", note: "" },
+            { file: "Zaalima  Raees  Shah Rukh Khan  Arijit Singh & Harshdeep Kaur  JAM8  Pritam.mp3", title: "Zaalima", artist: "Arijit Singh & Harshdeep Kaur", note: "" },
+        ];
+
+        // ============================================================
+        // Player logic — no need to edit below this line
+        // ============================================================
+        const audioPlayer = document.getElementById('songPlayer');
+        let currentlyPlayingIndex = -1;
+        let progressInterval = null;
+        let bgWasPlaying = false;
+
+        function formatTime(seconds) {
+            if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return mins + ':' + (secs < 10 ? '0' : '') + secs;
+        }
+
+        function titleFromFilename(filename) {
+            return filename
+                .replace(/\.mp3$/i, '')
+                .replace(/[-_]/g, ' ')
+                .replace(/\b\w/g, c => c.toUpperCase());
+        }
+
+        function renderSongs() {
+            const songList = document.getElementById('songList');
+            songList.innerHTML = '';
+
+            if (songs.length === 0) {
+                songList.innerHTML = '<div class="no-songs-message">No songs added yet!<br>Edit the <code>songs</code> array in this file to add your MP3s 🎶</div>';
+                return;
+            }
+
+            songs.forEach((song, index) => {
+                const title = song.title || titleFromFilename(song.file);
+                const artist = song.artist || '';
+                const note = song.note || '';
+
+                const div = document.createElement('div');
+                div.className = 'song';
+                div.setAttribute('data-index', index);
+                div.onclick = () => toggleSong(index);
+
+                div.innerHTML = `
+                    <div class="song-number" id="songNum${index}">${index + 1}</div>
+                    <div class="song-info">
+                        <div class="song-title">${title}</div>
+                        ${artist ? `<div class="song-artist">${artist}</div>` : ''}
+                        ${note ? `<div class="song-note">${note}</div>` : ''}
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progress${index}"></div>
+                        </div>
+                        <div class="song-duration">
+                            <span id="currentTime${index}">0:00</span>
+                            <span id="totalTime${index}">0:00</span>
+                        </div>
+                    </div>
+                `;
+
+                songList.appendChild(div);
+            });
+        }
+
+        function pauseBackgroundMusic() {
+            const bgMusic = document.getElementById('bgMusic');
+            if (bgMusic && !bgMusic.paused) {
+                bgWasPlaying = true;
+                bgMusic.pause();
+            }
+        }
+
+        function resumeBackgroundMusic() {
+            if (bgWasPlaying) {
+                const bgMusic = document.getElementById('bgMusic');
+                if (bgMusic) bgMusic.play().catch(() => {});
+                bgWasPlaying = false;
+            }
+        }
+
+        function stopCurrentSong() {
+            if (currentlyPlayingIndex >= 0) {
+                const prevCard = document.querySelector(`.song[data-index="${currentlyPlayingIndex}"]`);
+                if (prevCard) prevCard.classList.remove('playing');
+                const prevNum = document.getElementById(`songNum${currentlyPlayingIndex}`);
+                if (prevNum) prevNum.textContent = currentlyPlayingIndex + 1;
+            }
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+            clearInterval(progressInterval);
+            currentlyPlayingIndex = -1;
+        }
+
+        function updateProgress() {
+            if (currentlyPlayingIndex < 0) return;
+            const bar = document.getElementById(`progress${currentlyPlayingIndex}`);
+            const cur = document.getElementById(`currentTime${currentlyPlayingIndex}`);
+            const tot = document.getElementById(`totalTime${currentlyPlayingIndex}`);
+            if (bar) {
+                const pct = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                bar.style.width = pct + '%';
+            }
+            if (cur) cur.textContent = formatTime(audioPlayer.currentTime);
+            if (tot) tot.textContent = formatTime(audioPlayer.duration);
+        }
+
+        function toggleSong(index) {
+            if (currentlyPlayingIndex === index) {
+                // Toggle pause/play on the same song
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    document.getElementById(`songNum${index}`).textContent = '⏸';
+                    progressInterval = setInterval(updateProgress, 300);
+                } else {
+                    audioPlayer.pause();
+                    document.getElementById(`songNum${index}`).textContent = '▶';
+                    clearInterval(progressInterval);
+                }
+                return;
+            }
+
+            // Stop the previous song
+            stopCurrentSong();
+
+            // Pause background music when playing a song from the list
+            pauseBackgroundMusic();
+
+            // Play the new song
+            currentlyPlayingIndex = index;
+            const song = songs[index];
+            audioPlayer.src = 'assets/music/' + encodeURIComponent(song.file);
+            audioPlayer.loop = false;
+            audioPlayer.play();
+
+            const card = document.querySelector(`.song[data-index="${index}"]`);
+            if (card) card.classList.add('playing');
+            document.getElementById(`songNum${index}`).textContent = '⏸';
+
+            progressInterval = setInterval(updateProgress, 300);
+        }
+
+        // When a song ends, play the next one or resume background music
+        audioPlayer.addEventListener('ended', () => {
+            const nextIndex = currentlyPlayingIndex + 1;
+            stopCurrentSong();
+            if (nextIndex < songs.length) {
+                toggleSong(nextIndex);
+            } else {
+                // No more songs in the list — resume background music
+                resumeBackgroundMusic();
+            }
+        });
+
+        // Visual effects
         function createStars() {
             const starfield = document.getElementById('starfield');
             for (let i = 0; i < 100; i++) {
@@ -468,26 +659,14 @@
             }
         });
 
-        const music = document.getElementById('bgMusic');
-        const musicToggle = document.getElementById('musicToggle');
-        let isPlaying = false;
-
-        musicToggle.addEventListener('click', () => {
-            if (isPlaying) {
-                music.pause();
-                musicToggle.textContent = '🎵';
-            } else {
-                music.play();
-                musicToggle.textContent = '🎶';
-            }
-            isPlaying = !isPlaying;
-        });
-
+        // Initialize
         createStars();
+        renderSongs();
         for (let i = 0; i < 5; i++) {
             createMusicNote();
         }
         setInterval(createFloatingHeart, 2000);
     </script>
+    <script src="assets/js/background-music.js"></script>
 </body>
 </html>

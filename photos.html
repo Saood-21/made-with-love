@@ -17,7 +17,7 @@
             font-family: 'Comic Neue', cursive;
             min-height: 100vh;
             overflow-x: hidden;
-            background: linear-gradient(135deg, #ff8ec7 0%, #b19cd9 50%, #ff8ec7 100%);
+            background: linear-gradient(45deg, #ff6b9d, #c06c84, #6c5b7b, #355c7d);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             position: relative;
@@ -55,7 +55,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(90deg, #ff1493, #9370db, #ff1493);
+            background: linear-gradient(90deg, #ff1493, #6c5b7b, #ff1493);
             border-bottom: 5px solid #fff;
             box-shadow: 0 4px 0 #ff1493, 0 8px 0 #fff, 0 12px 20px rgba(0,0,0,0.3);
             padding: 10px 0;
@@ -130,11 +130,11 @@
             font-size: 52px;
             color: #ff1493;
             margin-bottom: 15px;
-            text-shadow: 5px 5px 0 #fff, 10px 10px 0 #9370db;
+            text-shadow: 5px 5px 0 #fff, 10px 10px 0 #6c5b7b;
         }
 
         .slideshow-container {
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
             position: relative;
         }
@@ -155,14 +155,13 @@
 
         .photo-frame {
             background: linear-gradient(135deg, #fff0fa 0%, #ffe6f7 100%);
-            border: 10px solid #ff1493;
-            border-radius: 20px;
+            border: 5px solid #ff1493;
+            border-radius: 15px;
             box-shadow: 
-                0 0 0 6px #fff,
-                0 0 0 12px #9370db,
-                0 0 0 15px #fff,
-                0 20px 50px rgba(0,0,0,0.4);
-            padding: 30px;
+                0 0 0 3px #fff,
+                0 0 0 6px #6c5b7b,
+                0 12px 30px rgba(0,0,0,0.3);
+            padding: 15px;
             position: relative;
         }
 
@@ -195,6 +194,14 @@
             font-weight: bold;
             text-align: center;
             padding: 20px;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            border-radius: 8px;
+            display: block;
+            max-height: 60vh;
+            object-fit: contain;
         }
 
         .photo-caption {
@@ -310,77 +317,7 @@
         </div>
 
         <div class="slideshow-container">
-            <div class="slide active">
-                <div class="photo-frame">
-                    <div class="photo-placeholder">
-                        <!-- Replace this placeholder with your image -->
-                        <!-- <img src="assets/images/photo1.jpg" style="width: 100%; border-radius: 10px;" alt="First Memory"> -->
-                        Replace with your photo! 💖<br>
-                        (First Memory)
-                    </div>
-                    <div class="photo-caption">Our first adventure together! 💕</div>
-                </div>
-            </div>
-
-            <div class="slide">
-                <div class="photo-frame">
-                    <div class="photo-placeholder">
-                        <!-- Replace this placeholder with your image -->
-                        <!-- <img src="assets/images/photo2.jpg" style="width: 100%; border-radius: 10px;" alt="Second Memory"> -->
-                        Replace with your photo! 💖<br>
-                        (Second Memory)
-                    </div>
-                    <div class="photo-caption">That amazing day we'll never forget! ✨</div>
-                </div>
-            </div>
-
-            <div class="slide">
-                <div class="photo-frame">
-                    <div class="photo-placeholder">
-                        <!-- Replace this placeholder with your image -->
-                        <!-- <img src="assets/images/photo3.jpg" style="width: 100%; border-radius: 10px;" alt="Third Memory"> -->
-                        Replace with your photo! 💖<br>
-                        (Third Memory)
-                    </div>
-                    <div class="photo-caption">Just being silly together! 😊</div>
-                </div>
-            </div>
-
-            <div class="slide">
-                <div class="photo-frame">
-                    <div class="photo-placeholder">
-                        <!-- Replace this placeholder with your image -->
-                        <!-- <img src="assets/images/photo4.jpg" style="width: 100%; border-radius: 10px;" alt="Fourth Memory"> -->
-                        Replace with your photo! 💖<br>
-                        (Fourth Memory)
-                    </div>
-                    <div class="photo-caption">The sunset was beautiful, but not as beautiful as you! 🌅</div>
-                </div>
-            </div>
-
-            <div class="slide">
-                <div class="photo-frame">
-                    <div class="photo-placeholder">
-                        <!-- Replace this placeholder with your image -->
-                        <!-- <img src="assets/images/photo5.jpg" style="width: 100%; border-radius: 10px;" alt="Fifth Memory"> -->
-                        Replace with your photo! 💖<br>
-                        (Fifth Memory)
-                    </div>
-                    <div class="photo-caption">Making memories every single day! 💝</div>
-                </div>
-            </div>
-
-            <div class="slide">
-                <div class="photo-frame">
-                    <div class="photo-placeholder">
-                        <!-- Replace this placeholder with your image -->
-                        <!-- <img src="assets/images/photo6.jpg" style="width: 100%; border-radius: 10px;" alt="Sixth Memory"> -->
-                        Replace with your photo! 💖<br>
-                        (Sixth Memory)
-                    </div>
-                    <div class="photo-caption">You make everything better! 🌟</div>
-                </div>
-            </div>
+            <div id="slidesContainer"></div>
 
             <div class="slideshow-controls">
                 <button class="control-btn" onclick="changeSlide(-1)">◀ PREV</button>
@@ -388,23 +325,92 @@
             </div>
 
             <div class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">6</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">0</span>
             </div>
         </div>
     </div>
 
-    <audio id="bgMusic" loop>
-        <source src="assets/music/background-music.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bgMusic"></audio>
 
     <script>
-        let currentSlideIndex = 0;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
+        // ============================================================
+        // 📸 PHOTO CONFIGURATION - Add your photos here!
+        //
+        // For each photo, provide:
+        //   file:    the image filename in assets/images/
+        //   caption: (optional) caption text for the photo
+        // ============================================================
+        const photos = [
+            { file: "WhatsApp Image 2026-02-13 at 2.48.14 AM (3).jpeg", caption: "My love, my heart, my life 💖" },
+            { file: "WhatsApp Image 2026-02-13 at 3.18.34 AM.jpeg", caption: "No matter where I am, you are always by my side 📷" },
+            { file: "WhatsApp Image 2026-02-13 at 1.55.49 AM.jpeg", caption: "Aese apky sath roz khana khana chahta hun meri jaan ✨" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM.jpeg", caption: "Teenage romance ho gya phir? 💕" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (1).jpeg", caption: "Just the two of us aur bnd derwazy 😛 " },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (2).jpeg", caption: "Besties before lovers 🌟" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (3).jpeg", caption: "Growing up with you has been a privilege 😊" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (4).jpeg", caption: "I promise to always stand by your side meri jaan 💝" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (5).jpeg", caption: "Love how we dont care ke kon dekh raha hamain 😄" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (7).jpeg", caption: "Always looking at you in every universe 💗" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (8).jpeg", caption: "My muse. My love 💘" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (9).jpeg", caption: "Can you believe that I bagged this baddie? 🌸" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (11).jpeg", caption: "We always did look good together ngl 🎉" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (13).jpeg", caption: "Mr and Mrs ki vibe tu hai 🏡" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (14).jpeg", caption: "Aese apny sath laga ke rakhna chahta hu tumhain 🫂" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (15).jpeg", caption: "I have the cutest copilot btw 💎" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (16).jpeg", caption: "Babiesssssss 🤍" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (17).jpeg", caption: "Iss din ki tarah hath main hath rkhna hai hamesha 🧑‍🤝‍🧑" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (18).jpeg", caption: "Still gives me butterflies 🦋" },
+            { file: "WhatsApp Image 2026-02-13 at 2.08.19 AM (19).jpeg", caption: "Somehow we always end up sath sath. Joray asmano main hi banty hain 🌈" },
+            { file: "WhatsApp Image 2026-02-13 at 2.17.14 AM.jpeg", caption: "Please never stop looking at me like this 📸" },
+            { file: "WhatsApp Image 2026-02-13 at 2.17.15 AM.jpeg", caption: "Noor ul Ain, will you go on random adventures with me for the rest of my life? 🌙" },
+            { file: "WhatsApp Image 2026-02-13 at 2.17.15 AM (1).jpeg", caption: "May I get to carry your shopping forever 👠" },
+            { file: "WhatsApp Image 2026-02-13 at 2.17.15 AM (2).jpeg", caption: "You make my life better. Harr tarah se. I love you so much 😘" },
+            { file: "WhatsApp Image 2026-02-13 at 2.48.13 AM.jpeg", caption: "You have always been the cutest person I ever laid my eyes on 🥹" },
+            { file: "WhatsApp Image 2026-02-13 at 2.48.13 AM (1).jpeg", caption: "Home is wherever you are + you are the smartest person I know 🏠" },
+            { file: "WhatsApp Image 2026-02-13 at 2.48.13 AM (2).jpeg", caption: "Iss din ne kafi mind banaya tha wese 👀" },
+            { file: "WhatsApp Image 2026-02-13 at 2.48.13 AM (3).jpeg", caption: "Jo bhi ho, remember I loved you bohut pehly se. 💖" },
+            { file: "WhatsApp Image 2026-02-13 at 2.48.13 AM (4).jpeg", caption: "I looked chopped but you looked so pretty(as always) + loved this day 🎂" },
+            { file: "WhatsApp Image 2026-02-13 at 2.48.14 AM.jpeg", caption: "Samny smile but andar se AAAAAAAAAAAAAAAA(im standing next to the loml) 🫠" },
+            { file: "WhatsApp Image 2026-02-13 at 2.48.14 AM (1).jpeg", caption: "Basic need: late night awaragardi with you 🌙" },
+            { file: "WhatsApp Image 2026-02-13 at 2.48.14 AM (4).jpeg", caption: "Can you please stop looking so damn fine 😭" },
+            { file: "WhatsApp Image 2026-02-13 at 2.48.14 AM (5).jpeg", caption: "Thank you for being my best friend + the best partner in crime 💃" },
+            { file: "WhatsApp Image 2026-02-13 at 2.48.14 AM (2).jpeg", caption: "A beautiful beginning of a beautiful journey 📖" },
+        ];
 
-        document.getElementById('totalSlides').textContent = totalSlides;
+        // ============================================================
+        // Slideshow logic
+        // ============================================================
+        let currentSlideIndex = 0;
+        let totalSlides = photos.length;
+
+        function renderSlides() {
+            const container = document.getElementById('slidesContainer');
+            container.innerHTML = '';
+
+            photos.forEach((photo, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'slide' + (index === 0 ? ' active' : '');
+
+                const caption = photo.caption
+                    ? `<div class="photo-caption">${photo.caption}</div>`
+                    : '';
+
+                slide.innerHTML = `
+                    <div class="photo-frame">
+                        <img src="assets/images/${encodeURIComponent(photo.file)}" alt="Memory ${index + 1}">
+                        ${caption}
+                    </div>
+                `;
+
+                container.appendChild(slide);
+            });
+
+            document.getElementById('totalSlides').textContent = totalSlides;
+            document.getElementById('currentSlide').textContent = 1;
+        }
 
         function showSlide(index) {
+            const slides = document.querySelectorAll('.slide');
             slides.forEach(slide => slide.classList.remove('active'));
             slides[index].classList.add('active');
             document.getElementById('currentSlide').textContent = index + 1;
@@ -421,6 +427,8 @@
         setInterval(() => {
             changeSlide(1);
         }, 5000);
+
+        renderSlides();
 
         function createStars() {
             const starfield = document.getElementById('starfield');
@@ -473,23 +481,9 @@
             }
         });
 
-        const music = document.getElementById('bgMusic');
-        const musicToggle = document.getElementById('musicToggle');
-        let isPlaying = false;
-
-        musicToggle.addEventListener('click', () => {
-            if (isPlaying) {
-                music.pause();
-                musicToggle.textContent = '🎵';
-            } else {
-                music.play();
-                musicToggle.textContent = '🎶';
-            }
-            isPlaying = !isPlaying;
-        });
-
         createStars();
         setInterval(createFloatingHeart, 2000);
     </script>
+    <script src="assets/js/background-music.js"></script>
 </body>
 </html>

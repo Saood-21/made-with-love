@@ -17,7 +17,7 @@
             font-family: 'Comic Neue', cursive;
             min-height: 100vh;
             overflow-x: hidden;
-            background: linear-gradient(135deg, #ffa6d5 0%, #9d8df1 50%, #ffa6d5 100%);
+            background: linear-gradient(45deg, #ff6b9d, #c06c84, #6c5b7b, #355c7d);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             position: relative;
@@ -55,7 +55,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(90deg, #ff69b4, #ba55d3, #ff69b4);
+            background: linear-gradient(90deg, #ff69b4, #6c5b7b, #ff69b4);
             border-bottom: 5px solid #fff;
             box-shadow: 0 4px 0 #ff1493, 0 8px 0 #fff, 0 12px 20px rgba(0,0,0,0.3);
             padding: 10px 0;
@@ -70,7 +70,7 @@
             font-size: 24px;
             font-weight: bold;
             color: #fff;
-            text-shadow: 3px 3px 0 #ba55d3, 6px 6px 0 rgba(0,0,0,0.2);
+            text-shadow: 3px 3px 0 #6c5b7b, 6px 6px 0 rgba(0,0,0,0.2);
         }
 
         @keyframes scroll {
@@ -122,7 +122,7 @@
             font-size: 56px;
             color: #ff1493;
             margin-bottom: 20px;
-            text-shadow: 5px 5px 0 #fff, 10px 10px 0 #ba55d3;
+            text-shadow: 5px 5px 0 #fff, 10px 10px 0 #6c5b7b;
             animation: bounce 2s ease-in-out infinite;
         }
 
@@ -154,7 +154,7 @@
             text-align: center;
             box-shadow: 
                 0 0 0 4px #fff,
-                0 0 0 8px #ba55d3,
+                0 0 0 8px #6c5b7b,
                 0 15px 40px rgba(0,0,0,0.3);
             transition: all 0.4s;
             cursor: pointer;
@@ -221,7 +221,7 @@
 
         .card-description {
             font-size: 18px;
-            color: #7873f5;
+            color: #6c5b7b;
             font-weight: bold;
         }
 
@@ -329,9 +329,7 @@
         </div>
     </div>
 
-    <audio id="bgMusic" loop>
-        <source src="assets/music/background-music.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bgMusic"></audio>
 
     <script>
         function createStars() {
@@ -389,23 +387,9 @@
             }
         });
 
-        const music = document.getElementById('bgMusic');
-        const musicToggle = document.getElementById('musicToggle');
-        let isPlaying = false;
-
-        musicToggle.addEventListener('click', () => {
-            if (isPlaying) {
-                music.pause();
-                musicToggle.textContent = '🎵';
-            } else {
-                music.play();
-                musicToggle.textContent = '🎶';
-            }
-            isPlaying = !isPlaying;
-        });
-
         createStars();
         setInterval(createFloatingHeart, 2000);
     </script>
+    <script src="assets/js/background-music.js"></script>
 </body>
 </html>
