@@ -210,43 +210,21 @@
         }
       }
 
-      .milestone:nth-child(1) {
-        animation-delay: 0.1s;
-      }
-      .milestone:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-      .milestone:nth-child(3) {
-        animation-delay: 0.3s;
-      }
-      .milestone:nth-child(4) {
-        animation-delay: 0.4s;
-      }
-      .milestone:nth-child(5) {
-        animation-delay: 0.5s;
-      }
-      .milestone:nth-child(6) {
-        animation-delay: 0.6s;
-      }
-      .milestone:nth-child(7) {
-        animation-delay: 0.7s;
-      }
-      .milestone:nth-child(8) {
-        animation-delay: 0.8s;
-      }
+      .milestone:nth-child(1) { animation-delay: 0.1s; }
+      .milestone:nth-child(2) { animation-delay: 0.2s; }
+      .milestone:nth-child(3) { animation-delay: 0.3s; }
+      .milestone:nth-child(4) { animation-delay: 0.4s; }
+      .milestone:nth-child(5) { animation-delay: 0.5s; }
+      .milestone:nth-child(6) { animation-delay: 0.6s; }
+      .milestone:nth-child(7) { animation-delay: 0.7s; }
+      .milestone:nth-child(8) { animation-delay: 0.8s; }
+      .milestone:nth-child(9) { animation-delay: 0.9s; }
 
       .milestone-content {
-        background: linear-gradient(135deg, #fff0fa 0%, #f0e6ff 100%);
-        border: 8px solid #ff1493;
-        border-radius: 20px;
-        box-shadow:
-          0 0 0 4px #fff,
-          0 0 0 8px #7c3aed,
-          0 15px 40px rgba(0, 0, 0, 0.3);
-        padding: 30px;
         width: calc(50% - 40px);
         position: relative;
-        transition: all 0.3s;
+        perspective: 1000px;
+        cursor: pointer;
       }
 
       .milestone:nth-child(odd) .milestone-content {
@@ -258,8 +236,72 @@
         margin-left: calc(50% + 40px);
       }
 
-      .milestone-content:hover {
-        transform: scale(1.05);
+      .card-inner {
+        position: relative;
+        transition: transform 0.6s ease;
+        transform-style: preserve-3d;
+      }
+
+      .milestone-content.flipped .card-inner {
+        transform: rotateY(180deg);
+      }
+
+      .card-front, .card-back {
+        background: linear-gradient(135deg, #fff0fa 0%, #f0e6ff 100%);
+        border: 8px solid #ff1493;
+        border-radius: 20px;
+        box-shadow:
+          0 0 0 4px #fff,
+          0 0 0 8px #7c3aed,
+          0 15px 40px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+      }
+
+      .card-back {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: rotateY(180deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .card-back img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+      }
+
+      .flip-hint {
+        position: absolute;
+        bottom: 10px;
+        right: 15px;
+        font-size: 14px;
+        color: #c084c0;
+        opacity: 0.7;
+      }
+
+      .milestone:nth-child(odd) .flip-hint {
+        right: auto;
+        left: 15px;
+      }
+
+      .card-back .flip-hint {
+        color: #fff;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        opacity: 0.9;
+        right: 15px;
+        left: auto;
+      }
+
+      .milestone-content:hover .card-front {
         box-shadow:
           0 0 0 4px #fff,
           0 0 0 8px #ff1493,
@@ -326,6 +368,49 @@
         line-height: 1.6;
       }
 
+      /* The "we don't talk about this" period */
+      .milestone.dark-period .card-front,
+      .milestone.dark-period .card-back {
+        background: linear-gradient(135deg, #f0f0f0 0%, #e8e0f0 100%);
+        border-color: #999;
+        box-shadow:
+          0 0 0 4px #fff,
+          0 0 0 8px #999,
+          0 15px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .milestone.dark-period .milestone-icon {
+        background: linear-gradient(135deg, #999, #777);
+        box-shadow:
+          0 0 0 4px #999,
+          0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .milestone.dark-period .milestone-date {
+        color: #888;
+      }
+
+      .milestone.dark-period .milestone-title {
+        color: #777;
+      }
+
+      /* Grand finale milestone */
+      .milestone.finale .card-front {
+        background: linear-gradient(135deg, #fff0fa 0%, #ffe0f5 50%, #f0e6ff 100%);
+        border-width: 10px;
+        padding: 40px;
+      }
+
+      .milestone.finale .milestone-description {
+        font-size: 20px;
+      }
+
+      .milestone.finale .milestone-icon {
+        width: 90px;
+        height: 90px;
+        font-size: 55px;
+      }
+
       .floating-heart {
         position: fixed;
         pointer-events: none;
@@ -390,11 +475,19 @@
         .milestone-content {
           width: calc(100% - 80px);
           margin-left: 80px !important;
+        }
+
+        .card-front {
           text-align: left !important;
         }
 
         .milestone-icon {
           left: 0 !important;
+          right: auto !important;
+        }
+
+        .flip-hint {
+          left: 15px !important;
           right: auto !important;
         }
       }
@@ -428,101 +521,195 @@
       <div class="timeline-container">
         <div class="timeline-line"></div>
 
+        <!-- Childhood -->
         <div class="milestone">
-          <div class="milestone-content">
-            <div class="milestone-date">January 1, 2020</div>
-            <div class="milestone-title">We Met! 🌟</div>
-            <div class="milestone-description">
-              The day our story began! I still remember how nervous and excited
-              I was!
+          <div class="milestone-content" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="milestone-date">Childhood</div>
+                <div class="milestone-title">Always Around 🌱</div>
+                <div class="milestone-description">
+                  We were always around each other. I always had an immense soft spot for you, and you always felt safe with me. Who would've known where this would lead.
+                </div>
+                <div class="flip-hint">📸 click to see photo</div>
+              </div>
+              <div class="card-back">
+                <img src="assets/images/WhatsApp%20Image%202026-02-13%20at%202.48.13%20AM%20(3).jpeg" alt="Childhood">
+                <div class="flip-hint">tap to flip back</div>
+              </div>
             </div>
           </div>
-          <div class="milestone-icon">💫</div>
+          <div class="milestone-icon">👶</div>
         </div>
 
+        <!-- 2023 -->
         <div class="milestone">
-          <div class="milestone-content">
-            <div class="milestone-date">February 14, 2020</div>
-            <div class="milestone-title">First Valentine's Day 💕</div>
-            <div class="milestone-description">
-              Our very first Valentine's Day together - and definitely not our
-              last!
+          <div class="milestone-content" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="milestone-date">2023</div>
+                <div class="milestone-title">The Best Decision 🏠</div>
+                <div class="milestone-description">
+                  Made one of the best decisions of my life and came to live with you. Everything changed from here.
+                </div>
+                <div class="flip-hint">📸 click to see photo</div>
+              </div>
+              <div class="card-back">
+                <img src="assets/images/WhatsApp%20Image%202026-02-13%20at%202.48.13%20AM%20(2).jpeg" alt="2023">
+                <div class="flip-hint">tap to flip back</div>
+              </div>
             </div>
           </div>
-          <div class="milestone-icon">💖</div>
+          <div class="milestone-icon">✈️</div>
         </div>
 
+        <!-- 2024 -->
         <div class="milestone">
-          <div class="milestone-content">
-            <div class="milestone-date">May 15, 2020</div>
-            <div class="milestone-title">First Adventure 🎢</div>
-            <div class="milestone-description">
-              Remember that amazing trip we took? So many laughs and
-              unforgettable moments!
+          <div class="milestone-content" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="milestone-date">2024</div>
+                <div class="milestone-title">Best Friends 🎮</div>
+                <div class="milestone-description">
+                  We got close, became good friends. You used to watch me game, I used to watch your dramas. The simplest things with you felt like everything.
+                </div>
+                <div class="flip-hint">📸 click to see photo</div>
+              </div>
+              <div class="card-back">
+                <img src="assets/images/WhatsApp%20Image%202026-02-13%20at%202.08.19%20AM%20(2).jpeg" alt="2024">
+                <div class="flip-hint">tap to flip back</div>
+              </div>
             </div>
           </div>
-          <div class="milestone-icon">🎡</div>
+          <div class="milestone-icon">🤝</div>
         </div>
 
+        <!-- 13th December 2024 -->
         <div class="milestone">
-          <div class="milestone-content">
-            <div class="milestone-date">August 20, 2020</div>
-            <div class="milestone-title">Special Celebration 🎉</div>
-            <div class="milestone-description">
-              We celebrated something amazing together and made it even more
-              special!
+          <div class="milestone-content" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="milestone-date">13th December 2024</div>
+                <div class="milestone-title">Mwah 💋</div>
+                <div class="milestone-description">
+                  You know exactly what happened. The moment that changed everything. 💖
+                </div>
+                <div class="flip-hint">📸 click to see photo</div>
+              </div>
+              <div class="card-back">
+                <img src="assets/images/WhatsApp%20Image%202026-02-13%20at%202.48.14%20AM%20(3).jpeg" alt="Dec 13">
+                <div class="flip-hint">tap to flip back</div>
+              </div>
             </div>
           </div>
-          <div class="milestone-icon">🎊</div>
+          <div class="milestone-icon">💋</div>
         </div>
 
+        <!-- Jan-Mar 2025 -->
         <div class="milestone">
-          <div class="milestone-content">
-            <div class="milestone-date">December 25, 2020</div>
-            <div class="milestone-title">First Holidays ❄️</div>
-            <div class="milestone-description">
-              Spending the holidays together was magical - you make everything
-              better!
+          <div class="milestone-content" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="milestone-date">January — March 2025</div>
+                <div class="milestone-title">Yearning & Butterflies 🦋</div>
+                <div class="milestone-description">
+                  A beautiful time. I used to miss you and yearn for you so much. But I didn't know how to deal with it when the yearning was blocked by people. Every moment apart felt like forever.
+                </div>
+                <div class="flip-hint">📸 click to see photo</div>
+              </div>
+              <div class="card-back">
+                <img src="assets/images/WhatsApp%20Image%202026-02-13%20at%202.08.19%20AM%20(14).jpeg" alt="Jan-Mar 2025">
+                <div class="flip-hint">tap to flip back</div>
+              </div>
             </div>
           </div>
-          <div class="milestone-icon">🎄</div>
+          <div class="milestone-icon">💭</div>
         </div>
 
+        <!-- Dark Period -->
+        <div class="milestone dark-period">
+          <div class="milestone-content" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="milestone-date">April — August 2025</div>
+                <div class="milestone-title">We Don't Talk About This 🤫</div>
+                <div class="milestone-description">
+                  ...yeah. XD. But this was necessary. I lost you, but I got you back. And this time, I was ready.
+                </div>
+                <div class="flip-hint">📸 click to see photo</div>
+              </div>
+              <div class="card-back">
+                <img src="assets/images/WhatsApp%20Image%202026-02-13%20at%202.08.19%20AM%20(8).jpeg" alt="Apr-Aug 2025">
+                <div class="flip-hint">tap to flip back</div>
+              </div>
+            </div>
+          </div>
+          <div class="milestone-icon">🌧️</div>
+        </div>
+
+        <!-- New Beginnings -->
         <div class="milestone">
-          <div class="milestone-content">
-            <div class="milestone-date">June 10, 2021</div>
-            <div class="milestone-title">Big Milestone 🌈</div>
-            <div class="milestone-description">
-              This was such an important day for us - I'm so glad we shared it
-              together!
+          <div class="milestone-content" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="milestone-date">September 2025</div>
+                <div class="milestone-title">New Beginnings 🌅</div>
+                <div class="milestone-description">
+                  A fresh start. This time with clarity, with certainty, with everything I should've brought to the table from the start. This time was different — because I was different.
+                </div>
+                <div class="flip-hint">📸 click to see photo</div>
+              </div>
+              <div class="card-back">
+                <img src="assets/images/WhatsApp%20Image%202026-02-13%20at%202.17.15%20AM%20(1).jpeg" alt="Sep 2025">
+                <div class="flip-hint">tap to flip back</div>
+              </div>
             </div>
           </div>
           <div class="milestone-icon">🌟</div>
         </div>
 
+        <!-- The Year We Fell In Love -->
         <div class="milestone">
-          <div class="milestone-content">
-            <div class="milestone-date">September 5, 2021</div>
-            <div class="milestone-title">Amazing Memory 🌅</div>
-            <div class="milestone-description">
-              One of those perfect days that I'll treasure forever - just you
-              and me!
+          <div class="milestone-content" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="milestone-date">2025</div>
+                <div class="milestone-title">The Year We Fell In Love 💕</div>
+                <div class="milestone-description">
+                  The year we fell in love, made mistakes, and learned to love each other again. The year that tested us and proved we were worth fighting for.
+                </div>
+                <div class="flip-hint">📸 click to see photo</div>
+              </div>
+              <div class="card-back">
+                <img src="assets/images/WhatsApp%20Image%202026-02-13%20at%203.18.34%20AM.jpeg" alt="2025">
+                <div class="flip-hint">tap to flip back</div>
+              </div>
             </div>
           </div>
-          <div class="milestone-icon">✨</div>
+          <div class="milestone-icon">💝</div>
         </div>
 
-        <div class="milestone">
-          <div class="milestone-content">
-            <div class="milestone-date">Today & Forever 💝</div>
-            <div class="milestone-title">Our Future Together 🚀</div>
-            <div class="milestone-description">
-              Here's to all the amazing moments still to come - I can't wait for
-              everything we'll share!
+        <!-- 2026 Finale -->
+        <div class="milestone finale">
+          <div class="milestone-content" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="milestone-date">2026 — Now & Forever 💖</div>
+                <div class="milestone-title">My Valentine, My Love 🥂</div>
+                <div class="milestone-description">
+                  Our first year together has been amazing, everything considered, and I wouldn't trade it for anything. We grew and changed for the better — for each other. Here's to many more years with you, my valentine, my love.
+                </div>
+                <div class="flip-hint">📸 click to see photo</div>
+              </div>
+              <div class="card-back">
+                <img src="assets/images/WhatsApp%20Image%202026-02-13%20at%202.17.15%20AM%20(3).jpeg" alt="2026">
+                <div class="flip-hint">tap to flip back</div>
+              </div>
             </div>
           </div>
           <div class="milestone-icon">💞</div>
         </div>
+
       </div>
     </div>
 
