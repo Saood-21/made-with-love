@@ -17,7 +17,7 @@
             font-family: 'Comic Neue', cursive;
             min-height: 100vh;
             overflow-x: hidden;
-            background: linear-gradient(45deg, #ff6b9d, #c06c84, #6c5b7b, #355c7d);
+            background: linear-gradient(135deg, #ff5f9e 0%, #a17fe0 50%, #ff5f9e 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             position: relative;
@@ -55,7 +55,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(90deg, #ff1493, #6c5b7b, #ff1493);
+            background: linear-gradient(90deg, #ff1493, #8b5cf6, #ff1493);
             border-bottom: 5px solid #fff;
             box-shadow: 0 4px 0 #ff1493, 0 8px 0 #fff, 0 12px 20px rgba(0,0,0,0.3);
             padding: 10px 0;
@@ -130,7 +130,7 @@
             font-size: 52px;
             color: #ff1493;
             margin-bottom: 15px;
-            text-shadow: 5px 5px 0 #fff, 10px 10px 0 #6c5b7b;
+            text-shadow: 5px 5px 0 #fff, 10px 10px 0 #8b5cf6;
         }
 
         .page-header h1 .cd-icon {
@@ -153,7 +153,7 @@
             border-radius: 25px;
             box-shadow: 
                 0 0 0 6px #fff,
-                0 0 0 12px #6c5b7b,
+                0 0 0 12px #8b5cf6,
                 0 0 0 15px #fff,
                 0 20px 50px rgba(0,0,0,0.4);
             padding: 50px 40px;
@@ -182,7 +182,7 @@
             border-radius: 15px;
             box-shadow: 
                 0 0 0 3px #fff,
-                0 0 0 6px #6c5b7b,
+                0 0 0 6px #8b5cf6,
                 0 8px 25px rgba(0,0,0,0.2);
             padding: 25px;
             margin-bottom: 25px;
@@ -262,7 +262,7 @@
 
         .song-artist {
             font-size: 20px;
-            color: #6c5b7b;
+            color: #8b5cf6;
             font-weight: bold;
             margin-bottom: 12px;
         }
@@ -417,34 +417,35 @@
         //   note:   (optional) personal note about the song
         // ============================================================
         const songs = [
-            { file: "Aaj Din Chadheya -lyrics  Rahat Fateh Ali Khan  Love Aaj Kal @LYRICS.mp3", title: "Aaj Din Chadheya", artist: "Rahat Fateh Ali Khan", note: "" },
-            { file: "Aaj Kal Tere Mere Pyar Ke Charche  Brahmachari (1968)  Shammi Kapoor  Mumtaz  Pran  Hindi Song.mp3", title: "Aaj Kal Tere Mere Pyar Ke Charche", artist: "Shammi Kapoor", note: "" },
-            { file: "Agora Hills.mp3", title: "Agora Hills", artist: "", note: "" },
-            { file: "Jawani Jan-E-Man House Trap.mp3", title: "Jawani Jan-E-Man", artist: "", note: "" },
-            { file: "Jimmy pulls up in his blue Chevy Nova - Lana Del Rey #lanadelreylove.mp3", title: "Jimmy Pulls Up In His Blue Chevy Nova", artist: "Lana Del Rey", note: "" },
-            { file: "kangana tera ni (sped up).mp3", title: "Kangana Tera Ni", artist: "", note: "" },
-            { file: "Karan Aujla, Ikky - For A Reason (Lyrics).mp3", title: "For A Reason", artist: "Karan Aujla, Ikky", note: "" },
-            { file: "KASHISH (Lyrics) Ashish Bhatia  Kashish Ratnani  Omkar Singh.mp3", title: "Kashish", artist: "Ashish Bhatia", note: "" },
-            { file: "Lat Lag Gaye (Lyrics) - Benny Dayal & Shalmali Kholgade !.mp3", title: "Lat Lag Gaye", artist: "Benny Dayal & Shalmali Kholgade", note: "" },
-            { file: "main tera.mp3", title: "Main Tera", artist: "", note: "" },
-            { file: "Main Tere pai mar gayi Sajnare Black Screen Lyrics Video.mp3", title: "Main Tere Pai Mar Gayi Sajnare", artist: "", note: "" },
-            { file: "Meem Se Mohabbat - [??????] Beqarrar Yeh Dil  - Singers [ Asim Azhar & Qirat Haider ] - HUM TV.mp3", title: "Meem Se Mohabbat", artist: "Asim Azhar & Qirat Haider", note: "" },
-            { file: "Mere Kaan Mai Hai Jo Bali  Kithe Reh Gaya (lyrical Video)  Neeti Mohan.mp3", title: "Kithe Reh Gaya", artist: "Neeti Mohan", note: "" },
-            { file: "Noor Mahal - Chani Nattan, Inderpal Moga (LyricsEnglish Meaning).mp3", title: "Noor Mahal", artist: "Chani Nattan, Inderpal Moga", note: "" },
-            { file: "rab jane menu ho gaya ki ve tere bina mera lagda  Slowed Reverb  DO PALL SURINDER KAUR X COACHSAH.mp3", title: "Do Pall", artist: "Surinder Kaur", note: "" },
-            { file: "Ranjha  Official Video  Shershaah  SidharthKiara  B Praak  Jasleen Royal  Romy  Anvita Dutt.mp3", title: "Ranjha", artist: "B Praak & Jasleen Royal", note: "" },
-            { file: "Ravyn Lenae - Love Me Not (Lyrics).mp3", title: "Love Me Not", artist: "Ravyn Lenae", note: "" },
-            { file: "Sanun Nahar Wale Pul  @EMIPakistanOfficial Madam Noor Jehan.mp3", title: "Sanun Nahar Wale Pul", artist: "Madam Noor Jehan", note: "" },
-            { file: "Taylor Swift - Style.mp3", title: "Style", artist: "Taylor Swift", note: "" },
+            { file: "Zaalima  Raees  Shah Rukh Khan  Arijit Singh & Harshdeep Kaur  JAM8  Pritam.mp3", title: "Zaalima", artist: "Arijit Singh & Harshdeep Kaur", note: "" },
             { file: "Taylor Swift - The Fate of Ophelia (Official Music Video).mp3", title: "The Fate of Ophelia", artist: "Taylor Swift", note: "" },
-            { file: "Taylor Swift - Wildest Dreams (Lyrics).mp3", title: "Wildest Dreams", artist: "Taylor Swift", note: "" },
-            { file: "Tere Liye - Atif Aslam & Shreya Ghoshal (Lyrics)  Lyrical Bam Hindi.mp3", title: "Tere Liye", artist: "Atif Aslam & Shreya Ghoshal", note: "" },
-            { file: "Tesher - Jalebi Baby (Original Version) (Official Lyric Video).mp3", title: "Jalebi Baby", artist: "Tesher", note: "" },
-            { file: "The Chainsmokers - Closer (Lyrics) ft. Halsey.mp3", title: "Closer", artist: "The Chainsmokers ft. Halsey", note: "" },
+            { file: "Taylor Swift - Style.mp3", title: "Style", artist: "Taylor Swift", note: "" },
+            { file: "Noor Mahal - Chani Nattan, Inderpal Moga (LyricsEnglish Meaning).mp3", title: "Noor Mahal", artist: "Chani Nattan, Inderpal Moga", note: "" },
+            { file: "Lat Lag Gaye (Lyrics) - Benny Dayal & Shalmali Kholgade !.mp3", title: "Lat Lag Gaye", artist: "Benny Dayal & Shalmali Kholgade", note: "" },
+            { file: "Karan Aujla, Ikky - For A Reason (Lyrics).mp3", title: "For A Reason", artist: "Karan Aujla, Ikky", note: "" },
             { file: "The Marías - Heavy (edit audio).mp3", title: "Heavy", artist: "The Marías", note: "" },
             { file: "The Marías - Jupiter.mp3", title: "Jupiter", artist: "The Marías", note: "" },
+            { file: "Tujh Mein Rab Dikhta Hai Song  Rab Ne Bana Di Jodi  Shah Rukh Khan, Anushka Sharma  Roop Kumar.mp3", title: "Tujh Mein Rab Dikhta Hai", artist: "Roop Kumar Rathod", note: "" },
+            { file: "Aaj Kal Tere Mere Pyar Ke Charche  Brahmachari (1968)  Shammi Kapoor  Mumtaz  Pran  Hindi Song.mp3", title: "Aaj Kal Tere Mere Pyar Ke Charche", artist: "Shammi Kapoor", note: "" },
+            { file: "Main Tere pai mar gayi Sajnare Black Screen Lyrics Video.mp3", title: "Main Tere Pai Mar Gayi Sajnare", artist: "", note: "" },
+            { file: "Ravyn Lenae - Love Me Not (Lyrics).mp3", title: "Love Me Not", artist: "Ravyn Lenae", note: "" },
+            { file: "Mere Kaan Mai Hai Jo Bali  Kithe Reh Gaya (lyrical Video)  Neeti Mohan.mp3", title: "Kithe Reh Gaya", artist: "Neeti Mohan", note: "" },
+            { file: "Jimmy pulls up in his blue Chevy Nova - Lana Del Rey #lanadelreylove.mp3", title: "Jimmy Pulls Up In His Blue Chevy Nova", artist: "Lana Del Rey", note: "" },
+            { file: "The Chainsmokers - Closer (Lyrics) ft. Halsey.mp3", title: "Closer", artist: "The Chainsmokers ft. Halsey", note: "" },
+            { file: "Aaj Din Chadheya -lyrics  Rahat Fateh Ali Khan  Love Aaj Kal @LYRICS.mp3", title: "Aaj Din Chadheya", artist: "Rahat Fateh Ali Khan", note: "" },
+            { file: "Sanun Nahar Wale Pul  @EMIPakistanOfficial Madam Noor Jehan.mp3", title: "Sanun Nahar Wale Pul", artist: "Madam Noor Jehan", note: "" },
             { file: "ve kamleya - edit audio.mp3", title: "Ve Kamleya", artist: "", note: "" },
-            { file: "Zaalima  Raees  Shah Rukh Khan  Arijit Singh & Harshdeep Kaur  JAM8  Pritam.mp3", title: "Zaalima", artist: "Arijit Singh & Harshdeep Kaur", note: "" },
+            { file: "rab jane menu ho gaya ki ve tere bina mera lagda  Slowed Reverb  DO PALL SURINDER KAUR X COACHSAH.mp3", title: "Do Pall", artist: "Surinder Kaur", note: "" },
+            { file: "Ranjha  Official Video  Shershaah  SidharthKiara  B Praak  Jasleen Royal  Romy  Anvita Dutt.mp3", title: "Ranjha", artist: "B Praak & Jasleen Royal", note: "" },
+            { file: "Tere Liye - Atif Aslam & Shreya Ghoshal (Lyrics)  Lyrical Bam Hindi.mp3", title: "Tere Liye", artist: "Atif Aslam & Shreya Ghoshal", note: "" },
+            { file: "kangana tera ni (sped up).mp3", title: "Kangana Tera Ni", artist: "", note: "" },
+            { file: "Jawani Jan-E-Man House Trap.mp3", title: "Jawani Jan-E-Man", artist: "", note: "" },
+            { file: "Tesher - Jalebi Baby (Original Version) (Official Lyric Video).mp3", title: "Jalebi Baby", artist: "Tesher", note: "" },
+            { file: "KASHISH (Lyrics) Ashish Bhatia  Kashish Ratnani  Omkar Singh.mp3", title: "Kashish", artist: "Ashish Bhatia", note: "" },
+            { file: "main tera.mp3", title: "Main Tera", artist: "", note: "" },
+            { file: "Taylor Swift - Wildest Dreams (Lyrics).mp3", title: "Wildest Dreams", artist: "Taylor Swift", note: "" },
+            { file: "Agora Hills.mp3", title: "Agora Hills", artist: "", note: "" },
+            { file: "Meem Se Mohabbat -Beqarrar Yeh Dil  - Singers [ Asim Azhar & Qirat Haider ] - HUM TV.mp3", title: "Meem Se Mohabbat", artist: "Asim Azhar & Qirat Haider", note: "" },
         ];
 
         // ============================================================
@@ -668,5 +669,30 @@
         setInterval(createFloatingHeart, 2000);
     </script>
     <script src="assets/js/background-music.js"></script>
+    <script>
+        // Sync the currently-playing mixtape song into the background-music
+        // state so it persists as bg music when navigating to other pages.
+        (function () {
+            const sp = document.getElementById('songPlayer');
+
+            function syncMixtapeState() {
+                if (currentlyPlayingIndex >= 0 && !sp.paused && songs[currentlyPlayingIndex]) {
+                    const state = {
+                        playing: true,
+                        file: songs[currentlyPlayingIndex].file,
+                        time: sp.currentTime || 0,
+                        timestamp: Date.now()
+                    };
+                    try { localStorage.setItem('bgMusicState', JSON.stringify(state)); } catch (e) {}
+                }
+            }
+
+            // Periodic sync while a mixtape song is playing
+            setInterval(syncMixtapeState, 1000);
+
+            // Final sync on page leave — runs AFTER background-music.js's handler
+            window.addEventListener('beforeunload', syncMixtapeState);
+        })();
+    </script>
 </body>
 </html>

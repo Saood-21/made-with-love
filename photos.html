@@ -17,7 +17,7 @@
             font-family: 'Comic Neue', cursive;
             min-height: 100vh;
             overflow-x: hidden;
-            background: linear-gradient(45deg, #ff6b9d, #c06c84, #6c5b7b, #355c7d);
+            background: linear-gradient(135deg, #ff8ec7 0%, #b19cd9 50%, #ff8ec7 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             position: relative;
@@ -55,7 +55,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(90deg, #ff1493, #6c5b7b, #ff1493);
+            background: linear-gradient(90deg, #ff1493, #9370db, #ff1493);
             border-bottom: 5px solid #fff;
             box-shadow: 0 4px 0 #ff1493, 0 8px 0 #fff, 0 12px 20px rgba(0,0,0,0.3);
             padding: 10px 0;
@@ -130,11 +130,11 @@
             font-size: 52px;
             color: #ff1493;
             margin-bottom: 15px;
-            text-shadow: 5px 5px 0 #fff, 10px 10px 0 #6c5b7b;
+            text-shadow: 5px 5px 0 #fff, 10px 10px 0 #9370db;
         }
 
         .slideshow-container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             position: relative;
         }
@@ -159,7 +159,7 @@
             border-radius: 15px;
             box-shadow: 
                 0 0 0 3px #fff,
-                0 0 0 6px #6c5b7b,
+                0 0 0 6px #9370db,
                 0 12px 30px rgba(0,0,0,0.3);
             padding: 15px;
             position: relative;
@@ -200,7 +200,7 @@
             width: 100%;
             border-radius: 8px;
             display: block;
-            max-height: 60vh;
+            max-height: 70vh;
             object-fit: contain;
         }
 
@@ -214,34 +214,45 @@
         }
 
         .slideshow-controls {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 40px;
+            display: none;
         }
 
-        .control-btn {
-            background: linear-gradient(135deg, #00ff88, #00cc66);
-            border: 5px solid #fff;
-            box-shadow: 0 0 0 3px #000, 0 6px 0 #000, 0 10px 30px rgba(0,0,0,0.3);
-            border-radius: 15px;
-            padding: 15px 40px;
-            font-family: 'Fredoka One', cursive;
-            font-size: 24px;
+        .arrow-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 20, 147, 0.7);
+            border: 3px solid #fff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 22px;
             color: #fff;
-            text-shadow: 2px 2px 0 #008844;
             cursor: pointer;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        .control-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 0 3px #000, 0 9px 0 #000, 0 13px 40px rgba(0,0,0,0.4);
+        .arrow-btn:hover {
+            background: rgba(255, 20, 147, 0.95);
+            transform: translateY(-50%) scale(1.1);
         }
 
-        .control-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 0 0 3px #000, 0 3px 0 #000, 0 5px 20px rgba(0,0,0,0.3);
+        .arrow-btn:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .arrow-prev { left: -25px; }
+        .arrow-next { right: -25px; }
+
+        @media (max-width: 768px) {
+            .arrow-prev { left: 5px; }
+            .arrow-next { right: 5px; }
+            .arrow-btn { width: 42px; height: 42px; font-size: 18px; }
         }
 
         .slide-counter {
@@ -317,12 +328,10 @@
         </div>
 
         <div class="slideshow-container">
-            <div id="slidesContainer"></div>
+            <button class="arrow-btn arrow-prev" onclick="changeSlide(-1)">◀</button>
+            <button class="arrow-btn arrow-next" onclick="changeSlide(1)">▶</button>
 
-            <div class="slideshow-controls">
-                <button class="control-btn" onclick="changeSlide(-1)">◀ PREV</button>
-                <button class="control-btn" onclick="changeSlide(1)">NEXT ▶</button>
-            </div>
+            <div id="slidesContainer"></div>
 
             <div class="slide-counter">
                 <span id="currentSlide">1</span> / <span id="totalSlides">0</span>

@@ -15,7 +15,7 @@
         
         body {
             font-family: 'Comic Neue', cursive;
-            background: linear-gradient(45deg, #ff6b9d, #c06c84, #6c5b7b, #355c7d);
+            background: linear-gradient(135deg, #ff6ec4 0%, #7873f5 50%, #ff6ec4 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             min-height: 100vh;
@@ -82,9 +82,11 @@
             position: relative;
             height: 250px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            flex-wrap: wrap;
         }
         
         .btn {
@@ -120,7 +122,7 @@
             color: white;
             border-color: #cc0000;
             box-shadow: 6px 6px 0 #cc0000;
-            position: absolute;
+            transition: all 0.15s ease;
         }
         
         .btn-no:hover {
@@ -149,6 +151,22 @@
         
         .hidden {
             display: none;
+        }
+
+        .no-sticker {
+            position: fixed;
+            pointer-events: none;
+            z-index: 900;
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            animation: stickerPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes stickerPop {
+            0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+            60% { transform: scale(1.2) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
         
         .sparkle {
@@ -249,7 +267,7 @@
                 </div>
                 <div class="game-buttons" id="gameButtons">
                     <button class="btn btn-yes" onclick="handleYes()">YES! 💖</button>
-                    <button class="btn btn-no" id="noBtn" onmouseover="moveNoButton()" onclick="moveNoButton()">
+                    <button class="btn btn-no" id="noBtn">
                         No
                     </button>
                 </div>
@@ -266,29 +284,95 @@
             document.getElementById('gameButtons').style.display = 'none';
             document.getElementById('question').style.display = 'none';
             document.getElementById('victoryMsg').classList.remove('hidden');
+            document.querySelectorAll('.no-sticker').forEach(s => s.remove());
             createSparkles(40);
             
+            // Tell background-music.js to start playing on the next page
+            try {
+                localStorage.setItem('bgMusicState', JSON.stringify({
+                    playing: true, file: null, time: 0, timestamp: Date.now()
+                }));
+            } catch (e) {}
+
             // Redirect to welcome page after 2.5 seconds
             setTimeout(() => {
                 window.location.href = 'welcome.html';
             }, 2500);
         }
         
-        function moveNoButton() {
+        // Sticker system
+        let noCount = 0;
+        const sticker1 = 'assets/stickers/normal baby.png';
+        const sticker2 = 'assets/stickers/babyfire.png';
+
+        function spawnSticker() {
+            noCount++;
+            const src = noCount <= 4 ? sticker1 : sticker2;
+
+            const img = document.createElement('img');
+            img.className = 'no-sticker';
+            img.src = src;
+
+            // Random position, keeping it within the viewport
+            const size = 80 + Math.random() * 60; // 80-140px
+            img.style.width = size + 'px';
+            img.style.height = size + 'px';
+            img.style.left = Math.random() * (window.innerWidth - size) + 'px';
+            img.style.top = Math.random() * (window.innerHeight - size) + 'px';
+
+            document.body.appendChild(img);
+        }
+
+        function moveNoButton(e) {
+            if (e) e.preventDefault();
             const btn = document.getElementById('noBtn');
             const container = btn.parentElement;
-            
+            const yesBtn = document.querySelector('.btn-yes');
+
             const containerRect = container.getBoundingClientRect();
-            const maxX = containerRect.width - btn.offsetWidth - 40;
-            const maxY = containerRect.height - btn.offsetHeight - 40;
-            
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
-            
+            const yesBtnRect = yesBtn.getBoundingClientRect();
+
+            const btnW = btn.offsetWidth;
+            const btnH = btn.offsetHeight;
+            const maxX = containerRect.width - btnW - 10;
+            const maxY = containerRect.height - btnH - 10;
+
+            // Try random positions until we find one that doesn't overlap YES
+            let randomX, randomY, tries = 0;
+            do {
+                randomX = Math.random() * maxX;
+                randomY = Math.random() * maxY;
+
+                // Check overlap with YES button (relative to container)
+                const newLeft = containerRect.left + randomX;
+                const newTop = containerRect.top + randomY;
+                const overlaps =
+                    newLeft < yesBtnRect.right + 20 &&
+                    newLeft + btnW > yesBtnRect.left - 20 &&
+                    newTop < yesBtnRect.bottom + 20 &&
+                    newTop + btnH > yesBtnRect.top - 20;
+
+                if (!overlaps || tries > 20) break;
+                tries++;
+            } while (true);
+
             btn.style.position = 'absolute';
             btn.style.left = randomX + 'px';
             btn.style.top = randomY + 'px';
+
+            spawnSticker();
         }
+
+        // Attach events — touchstart fires BEFORE click, preventing accidental YES
+        (function () {
+            const noBtn = document.getElementById('noBtn');
+            noBtn.addEventListener('mouseover', moveNoButton);
+            noBtn.addEventListener('touchstart', moveNoButton, { passive: false });
+            noBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                moveNoButton();
+            });
+        })();
         
         // Sparkles effect
         function createSparkles(count) {

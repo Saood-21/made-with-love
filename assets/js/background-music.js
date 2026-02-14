@@ -13,7 +13,7 @@ const bgSongFiles = [
     "Lat Lag Gaye (Lyrics) - Benny Dayal & Shalmali Kholgade !.mp3",
     "main tera.mp3",
     "Main Tere pai mar gayi Sajnare Black Screen Lyrics Video.mp3",
-    "Meem Se Mohabbat - [??????] Beqarrar Yeh Dil  - Singers [ Asim Azhar & Qirat Haider ] - HUM TV.mp3",
+    "Meem Se Mohabbat -Beqarrar Yeh Dil  - Singers [ Asim Azhar & Qirat Haider ] - HUM TV.mp3",
     "Mere Kaan Mai Hai Jo Bali  Kithe Reh Gaya (lyrical Video)  Neeti Mohan.mp3",
     "Noor Mahal - Chani Nattan, Inderpal Moga (LyricsEnglish Meaning).mp3",
     "rab jane menu ho gaya ki ve tere bina mera lagda  Slowed Reverb  DO PALL SURINDER KAUR X COACHSAH.mp3",
@@ -30,6 +30,7 @@ const bgSongFiles = [
     "The Marías - Jupiter.mp3",
     "ve kamleya - edit audio.mp3",
     "Zaalima  Raees  Shah Rukh Khan  Arijit Singh & Harshdeep Kaur  JAM8  Pritam.mp3",
+    "Tujh Mein Rab Dikhta Hai Song  Rab Ne Bana Di Jodi  Shah Rukh Khan, Anushka Sharma  Roop Kumar.mp3",
 ];
 
 (function () {
@@ -102,12 +103,17 @@ const bgSongFiles = [
             const age = Date.now() - (state.timestamp || 0);
             if (age > 5000) return;
 
-            if (state.playing && state.file) {
+            if (state.playing) {
                 bgPlaying = true;
                 bgToggle.textContent = '🎶';
-                // Account for time elapsed during page load
-                const resumeTime = (state.time || 0) + (age / 1000);
-                loadAndPlay(state.file, resumeTime);
+                if (state.file) {
+                    // Resume the specific song, accounting for time elapsed during page load
+                    const resumeTime = (state.time || 0) + (age / 1000);
+                    loadAndPlay(state.file, resumeTime);
+                } else {
+                    // No specific song — pick a random one (e.g. first visit from index)
+                    loadAndPlay();
+                }
             }
         } catch (e) {}
     }
